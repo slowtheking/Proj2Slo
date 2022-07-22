@@ -1,0 +1,96 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Home CinéLoc
+{% endblock %}
+
+{# ++++ PAGE ACCUEIL +++++ #}
+
+
+{% block content %}
+
+	{# ++++ Carousel ???? +++++ #}
+
+	<div class="container-fluid">
+
+		<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+			<div class="carousel-inner">
+				{% for photo in photos %}
+					<div {% if loop.index0==0 %} class="carousel-item active" {% else %} class="carousel-item" {% endif %}>
+						<img src="{{ asset('photoType/' ~ photo.name ) }}" class="d-block w-100 vh-50" alt="{{ photo.name}}">
+						<div class="carousel-caption">
+							<h1 class="fw-bold ">
+								Nos Atteliers
+							</h1>
+							<p>Atelier de 1000 M² entièrement équipé.
+								<br>Notre équipe de couturières peut réaliser tous types de projets.</p>
+						</div>
+
+
+					</div>
+				{% endfor %}
+
+			</div>
+			<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
+		</div>
+
+	</div>
+
+
+	<!-- End Example Code -->
+
+
+	{# ++++ Chapeau +++++ #}
+
+	<div class="mx-auto" style="width: 37em">
+		<div>
+			<h2 class="mt-5 mb-4 display-8 lh-1 fw-light">
+				Notre catalogue compte près de 950 photos,
+							organisées par époques ou par catégories,
+							qui offrent un aperçu du vaste choix offert par la collection.
+			</h2>
+
+		</div>
+
+	</div>
+
+	<div class="container px-4 py-5 rounded-10" id="custom-cards">
+		<h2 class="pb-2 align-center border-bottom">La Collection</h2>
+	</div>
+
+{# ++++ Visu Articles LA COLLECTION +++++ #}
+
+
+	<div class="row item-align-center  ">
+
+		{% for article in articles %}
+			<div class="card m-2 " style="width:250px ">
+
+				<div class="img-fluid" style="max-width:50px align-center">
+					<a href="{{ path('article_show', {id: article.id}) }}">
+					<img src="{{ asset('photoArticles/' ~ article.photo) }}" class="img-fluid"/>
+					</a>
+
+				</div>
+
+				<div class="card-body">
+					<h5 class="card-title">{{article.titre}}</h5>
+					<p class="card-text">{{article.epoque}}</p>
+					<p class="card-text">{{article.description | slice(0,40)}}</p>
+					<p class="card-text">{{article.prix}}
+						€/Jour</p>
+					<a href="{{ path('article_show', {id: article.id}) }}" 
+					class="btn btn-outline-secondary btn-sm">
+					Fiche Article </a>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+
+</div>{% endblock %}{# {% endblock %} #}

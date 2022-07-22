@@ -1,0 +1,220 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+	Votre Panier
+{% endblock %}
+
+{# ++++++++++++++++++++ LE PANIER ++++++++++++++++++++ #}
+
+{% block content %}
+
+	<style></style>
+
+{# +++ AFF dans le panier +++ #}
+
+	<div class=" row container mt-5 p-3 rounded cart">
+		<div class="row no-gutters">
+
+			<div class="col-md-8">
+				<div class="product-details mr-2">
+					<div class="d-flex flex-row align-items-center">
+						<i class="fa fa-long-arrow-left"></i>
+						<span class="ml-2"> 						
+								<a href="{{ path("articles_all")}}">
+									<button class="btn btn-sm btn-inlign-succes mb-2 px-4 ">
+									Continuer la Selection
+									</button>
+								</a>
+						</span>
+
+
+					</div>
+					<hr>
+					<h6 class="mb-0">Votre Panier</h6>
+
+					{% for data in dataPanier %}
+						<div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded">
+							<div class="d-flex flex-row">
+								<img class="rounded" src="{{ asset('photoArticles/') ~ data.article.photo}}" width="40">
+
+								<div class="ml-5">
+									<p class="font-weight-bold d-block">{{ data.article.titre }}</p>
+									<p class="spec">{{ data.article.description | slice(0,20)}}</p>
+								</div>
+							</div>
+							<div class="d-flex flex-row align-items-center">
+								<p class="d-block fs-blod">Quantité: {{ data.quantite }}</p>
+							</div>
+							<div class="d-flex flex-row align-items-center">
+								<p class="d-block ml-5 font-weight-bold">Prix: {{ data.article.prix }} €</p>
+
+								<a href="{{ path('panier_delete_article', {id: data.article.id}) }}" 
+									style="ml-3 color: #cecece;">supp
+									<i class="fa fa-trash-o ml-3 text-black-50"></i>
+								</a>
+							</div>
+						</div>
+					{% endfor %}	
+
+				</div>
+			</div>
+
+		 {# Champs carte de payement  #}
+			<div class="col-md-4">
+				<div class="payment-info">
+					<div class="d-flex justify-content-between align-items-center">
+				<span>Détails Carte</span>
+				<img class="rounded" src="#" width="30"></div>
+
+					<span class="type d-block mt-3 mb-1">Type de Payement</span>
+
+					<label class="radio">
+				<input type="radio" name="card" value="payment" checked>
+				<span><img width="30" src="https://img.icons8.com/officel/48/000000/visa.png"/></span>
+					</label>
+
+					<label class="radio">
+				<input type="radio" name="card" value="payment">
+				<span><img width="30" src="https://img.icons8.com/officel/48/000000/paypal.png"/></span>
+					</label>
+
+
+					<div>
+				<label class="credit-card-label">Nom Prénom</label>
+				<input type="text" class="form-control credit-inputs" placeholder="Name">
+				</div>
+
+					<div>
+				<label class="credit-card-label">Numéros Carte</label>
+				<input type="text" class="form-control credit-inputs" placeholder="0000 0000 0000 0000"></div>
+					<div class="row">
+				<div class="col-md-6">
+					<label class="credit-card-label">date d'expiration</label>
+					<input type="text" class="form-control credit-inputs" placeholder="12/24"></div>
+				<div class="col-md-6">
+					<label class="credit-card-label">CVV</label>
+					<input type="text" class="form-control credit-inputs" placeholder="342"></div>
+					</div>
+
+		  {# Champs Total   #}
+
+					<hr class="line">
+					<div class="d-flex justify-content-between information">
+						<span>Sous Total</span>
+						<span>{{ total }} €</span>
+					</div>
+
+					<button class="btn btn-primary btn-block d-flex justify-content-between mt-3" type="button">
+						<span>{{ total }} €</span>
+						<span>Valider<i class="fa fa-long-arrow-right ml-1"></i>
+						</span>
+					</button>
+				</div>
+			</div>
+
+		</div>
+
+
+
+	</div>
+</div>
+	{% endblock %}
+
+{# Shoping Card 1 du cours #}
+
+{#
+	<section class="h-100 h-custom" style=" ">
+		<div class="container py-5 h-100">
+			<div class="row d-flex justify-content-center align-items-center h-100">
+				<div class="col-12">
+					<div class="card card-registration card-registration-2" style="border-radius: 15px;">
+	
+						{% for data in dataPanier %}
+							<div class="card-body p-0">
+							<div class="row g-0">
+	
+								<div class="col-lg-8">
+									<div class="p-5">
+											<hr class="my-4">
+											<div class="row mb-4 d-flex justify-content-between align-items-center">
+												<div class="col-md-2 col-lg-2 col-xl-2">
+													<img src="{{ asset('photoArticles/') ~ data.article.photo}}" 
+													class="img-fluid rounded-3" alt={{ data.article.titre}}>
+												</div>
+												<div class="col-md-3 col-lg-3 col-xl-3">
+													<h6 class="text-muted">{{data.article.titre}}</h6>
+													<h6 class="text-black mb-0">{{data.article.description}}</h6>
+												</div>
+												<div class="col-md-3 col-lg-3 col-xl-2 d-flex">
+													<button class="btn btn-link px-2" 
+													onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
+														<i class="fas fa-minus"></i>
+													</button>
+	
+													<input id="form1" min="0" name="quantity" value="1" type="number" 
+													class="form-control form-control-sm"/>
+	
+													<button class="btn btn-link px-2" 
+													onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
+														<i class="fas fa-plus"></i>
+													</button>
+												</div>
+												<div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+													<h6 class="mb-0">{{data.article.prix}}€</h6>
+												</div>
+												<div class="col-md-1 col-lg-1 col-xl-1 text-end">
+													<a href="#!" class="text-muted">
+														<i class="fas fa-times"></i>
+													</a>
+												</div>
+											</div>
+	
+											<hr class="my-4">
+	
+										
+	
+										<div class="pt-5">
+											<h6 class="mb-0">
+												<a href="{{ path('articles_all') }}" class="text-body">
+													<i class="fas fa-long-arrow-alt-left me-2"></i>Retour à la boutique</a>
+											</h6>
+										</div>
+									</div>
+								</div>
+	
+								<div class="col-lg-4 bg-grey">
+									<div class="p-5">
+										<h3 class="fw-bold mb-5 mt-2 pt-1">Récapitulatif</h3>
+										<hr class="my-4">
+	
+										<div class="d-flex justify-content-between mb-4">
+											<h5 class="text-uppercase">{{data.quantite}}
+												article(s)</h5>
+											<h5>{{ total }}€</h5>
+										</div>
+	
+	
+										<hr class="my-4">
+	
+										<div class="d-flex justify-content-between mb-5">
+											<h5 class="text-uppercase">Prix Total</h5>
+											<h5>{{ total }}€</h5>
+										</div>
+	
+										<button type="button" class="btn btn-dark btn-block btn-lg" data-mdb-ripple-color="dark">Valider</button>
+									
+	
+									</div>
+									</div>
+	
+							</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section> #}
+	
+	
+

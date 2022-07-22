@@ -3,7 +3,12 @@
 
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
+
+# ======= Ci-dessous créa du Param pour stocker les images
 parameters:
+    photo_article: "%kernel.project_dir%/public/photoArticles"
+    photo_type: "%kernel.project_dir%/public/photoType"
+    
 
 services:
     # default configuration for services in *this* file

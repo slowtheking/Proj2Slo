@@ -1,0 +1,128 @@
+{% extends "layout.html.twig" %}
+
+{% block title %}
+	Détails Article :
+	{{ article.titre }}
+{% endblock %}
+
+{% block content %}
+{# ==============  ARTICLE =============== #}
+
+{# +++++ carousel #}
+{# 
+<div class="container-fluid">
+
+	<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+		<div class="carousel-inner">
+			{% for photo in photos %}
+				<div {% if loop.index0==0 %} class="carousel-item active" {% else %} class="carousel-item" {% endif %}>
+					<img src="{{ asset('photoType/' ~ photo.name ) }}" class="d-block w-100 vh-50" alt="{{ photo.name}}">
+					<div class="carousel-caption">
+						<h1 class="fw-bold ">
+							Nos Atteliers
+						</h1>
+						<p>Atelier de 1000 M² entièrement équipé.
+							<br>Notre équipe de couturières peut réaliser tous types de projets.</p>
+					</div>
+
+
+				</div>
+			{% endfor %}
+
+		</div>
+		<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Previous</span>
+		</button>
+		<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Next</span>
+		</button>
+	</div>
+
+</div> 
+#}
+
+{# +++++ end carousel #}
+<div class="mt-5">
+
+	<div class="container-md card " style="width: 37rem;">
+
+		<div class="d-flex flex-row container-fluid col-md-6">
+
+			<container class="container col-md-12 col-lg-10 col-sm-8" style="min-width: 45% ">
+				<h4 class="card-text ">Detail Article <br>N°-
+					{{ article.id }}</h4>
+
+				<h6 class="text-muted">
+					<strong>Date d'ajout :</strong>
+					{{ article.dateEnregistrement | date('d/m/Y \à H\\hi') }}
+				</h6>
+
+				<h6>
+					<strong>Titre :
+					</strong>
+					{{ article.titre }}</h6>
+
+				<h6>
+					<strong>Ref :
+					</strong>
+					{{ article.ref }}
+				</h6>
+
+				<h6>
+					<strong>Epoque :
+					</strong>
+					{{ article.epoque }}</h6>
+
+				<h6>
+					<strong>Description :
+					</strong>
+					{{ article.description }}</h6>
+
+				<h6 style="justify">
+					<strong>Couleur :
+					</strong>
+					{{ article.couleur }}</h6>
+
+				<h6>
+					<strong>Taille :
+					</strong>
+					{{ article.taille }}</h6>
+
+				<h6>
+					<strong>Prix / jour :
+					</strong>
+					{{ article.prix }}
+					€</h6>
+
+				<div class="d-grid gap-2 col-6 mx-center">
+					<a class=" btn btn-outline-success btn-sm" 
+					href="{{ path('panier_add', {id: article.id}) }}">
+						Selectionner</a>
+					<br>
+
+					<a class="btn btn-sm btn-secondary " 
+					href="{{ path('admin_det_article', {id: article.id}) }}">
+						<-| </a> 
+					<a class="btn btn-sm btn-secondary" 
+					href="{{ path('admin_det_article', {id: article.id}) }}"> 
+						|-></a>
+						<br>
+
+					<a class=" btn btn-outline-secondary btn-sm" 
+						href="{{ path('admin_gestion_articles', {id: article.id}) }}">Retour</a>
+				</div>
+
+			</container>	
+				<div class="card-image col-md-6 col-lg-4 col-sm-6" style="image-width: 10%, min-width: 100%">
+					<img src="{{ asset('photoArticles/' ~ article.photo) }}" 
+					alt="{{article.titre}}">
+				</div>
+
+		</div>
+</div>
+
+
+	{% endblock %}
+ 

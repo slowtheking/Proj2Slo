@@ -1,0 +1,119 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}
+	{{ article.titre }}
+{% endblock %}
+
+{# ============== FICHE ARTICLE =============== #}
+
+
+{% block content %}
+{# carousel #}
+{# <div class="container">
+
+	<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+		<div class="carousel-inner">
+			{% for photo in photos %}
+				<div {% if loop.index0==0 %} class="carousel-item active" {% else %} class="carousel-item" {% endif %}>
+					<img src="{{ asset('photoType/' ~ photo.name ) }}" class="d-block w-100 vh-50" alt="{{ photo.name}}">
+					<div class="carousel-caption">
+						<h1 class="fw-bold ">
+							Nos Atteliers
+						</h1>
+						<p>Atelier de 1000 M² entièrement équipé.
+							<br>Notre équipe de couturières peut réaliser tous types de projets.</p>
+					</div>
+
+
+				</div>
+			{% endfor %}
+
+		</div>
+		<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Previous</span>
+		</button>
+		<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Next</span>
+		</button>
+	</div>
+
+</div> #}
+{# end carousel #}
+
+
+{# FICHE #}
+<div class="d-inline-flex p-2 mt-5">
+
+
+
+	<div class="row d-flex justify-content-center">
+
+		<div class="col-md-8">
+			<div class="card">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="col-md-11 container-sm">
+							<h5 class="row d-flex justify-content-center fw-bold mt-4">
+							Fiche :
+							{{ article.titre }}
+							{{ article.epoque }}</h5>
+							<div class="img-fluid">
+								<img id="main-image" src="{{ asset('photoArticles/' ~ article.photo) }}" 
+								height="100%" width="100%"/>
+							</div>
+
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class="product p-4">
+
+							<div class="mt-4 mb-3">
+								<h5 class="">{{ article.titre }}</h5>
+
+								<h6 class="text-uppercase">Catégorie :
+									{{ article.epoque }}</h6>
+
+								<div class="price d-flex flex-row align-items-center">
+									<span class="act-price">Prix :
+										{{ article.prix }}
+										€ / Jour
+									</span>
+								</div>
+							</div>
+						</div>
+
+						<p class="about mt-2 m-3 col-md-11"><strong>Description :</strong><br>
+							{{ article.description }}</p>
+						<div class="sizes m-3 mt-5">
+							<h6><strong>Taille :</strong>
+								{{ article.taille }}</h6>
+							<h6><strong>Couleur :</strong>
+								{{ article.couleur }}</h6>							
+							<h6><strong>Epoque :</strong>
+								{{ article.epoque }}</h6>
+						</div>
+
+						<div class="cart mt-2 m-3 align-items-left">
+							<a href="{{ path("panier_add", {id: article.id}) }}">
+								<button class="btn btn-sm btn-danger text-uppercase mb-2 px-4 ">
+									Sélectionner
+								</button>
+							</a>
+							<a href="{{ path("articles_all")}}">
+								<button class="btn btn-sm btn-inlign-succes text-uppercase mb-2 px-4 ">
+									Retour
+								</button>
+							</a>
+						</div>			
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
+

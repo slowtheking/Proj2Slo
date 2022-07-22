@@ -1,0 +1,152 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+	{# ========== NavBar ========== #}
+	<header>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+
+			<div class="container-fluid">
+				<a class="navbar-brand " href="#">CinéLoc</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item">
+							<a class="nav-link active" aria-current="page" href="{{ path('app_home') }}">Accueil</a>
+						</li>
+
+						<li class="nav-item">
+							<a class="nav-link" href="#">Productions</a>
+						</li>
+
+						{# Collections #}
+						<div class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="{{ path('articles_all') }}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								Collections
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a class="dropdown-item" href="#">Rien</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="#">Cat#2</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="#">Cat#3</a>
+								</li>
+								<li><hr class="dropdown-divider"></li>
+								<li>
+									<a class="dropdown-item" href="{{ path('articles_all') }}" >Tout voir</a>
+								</li>
+							</ul>
+						</div>
+
+
+						{#  #}
+
+
+						{# Connexion #}
+						{% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="{{ path('app_login') }}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									Connexion
+								</a>
+								<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<li>
+										<a class="dropdown-item" href="{{ path('app_login') }}">Connexion</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="{{ path('app_register') }}">Inscription</a>
+									</li>
+								{% else %}
+									<li><hr class="dropdown-divider"></li>
+									<li>
+										<a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a>
+									</li>
+								{% endif %}
+
+								{# ====== ADMIN ======== #}
+
+									{% if is_granted("IS_AUTHENTICATED_FULLY") and is_granted("ROLE_ADMIN") %}
+
+										<li class="nav-item dropdown"> <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admin</a>
+
+										<ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+											<li>
+												<a class="dropdown-item" href="{{ path('admin_ajout_article') }}">Ajout d'un article</a>
+											</li>
+											<li>
+												<a class="dropdown-item" href="{{ path('admin_ajout_categorie') }}">Ajout d'une categorie</a>
+											</li>
+											<li>
+												<a class="dropdown-item" href="{{ path('admin_gestion_articles') }}">Gestion des articles</a>
+											</li>
+										</ul>
+
+									</li>
+								{% endif %}
+								{# ====== PANIER ======== #}
+									<li class="nav-item text-right align-end">
+										<a class="nav-link" href="{{ path('panier_show') }}">Panier</a>
+									</li>
+							</li>
+							</li>
+						</ul>
+					</li>
+
+				</ul>
+				{# <form class="d-flex" role="search">
+									<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+									<button class="btn btn-outline-success" type="submit">Recherche</button>
+								</form> #}
+			</div>
+		</div>
+	</nav>
+</header>
+
+{# ========== main ========== #}
+
+<main class=" mb-5">
+	
+		{# affiche les messages de connexion error ou success #}
+		{% for message in app.flashes('error') %}
+			<div class="alert alert-danger text-center">
+				<p>{{ message }}</p>
+			</div>
+			{% endfor %}
+
+			{% for message in app.flashes('success') %}
+				<div class="alert alert-success text-center">
+					{{ message }}
+				</div>
+				{% endfor %}
+			
+
+
+			{% block content %}
+			
+			{% endblock %}
+
+			{% block final_js %}
+				{# Block qui servira a ajouter du js a chaque page #}
+			{% endblock %}
+		</main>
+
+		{# ========== Footer ========== #}
+
+		<footer class="fixed-bottom bg-dark">
+			<div
+				class="text-center text-white">
+
+				{# <li class="nav-item">
+						<a class="nav-link" href="{{ path('app_cgv') }}">- Nos CGV -</a>
+						</li> #}
+
+				<p>&copy; Location vente, © Ma Boutique</p>
+
+
+			</div>
+		</footer>
+	{% endblock %}
